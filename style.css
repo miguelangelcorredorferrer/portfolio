@@ -1,0 +1,432 @@
+/* --- Variables de Color (Estilo Hacker) --- */
+:root {
+    --color-negro: #0a0a0a;
+    --color-negro-sec: #111111;
+    --color-gris: #222222;
+    --color-blanco: #f0f0f0;
+    --color-verde-lima: #00ff00;
+    --color-verde-oscuro: #008f00;
+}
+
+/* --- Reseteo Global --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    background-color: var(--color-negro);
+    color: var(--color-blanco);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-verde-lima);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--color-verde-lima);
+    text-decoration: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* --- Header / Navbar --- */
+header {
+    background-color: var(--color-negro-sec);
+    border-bottom: 1px solid var(--color-verde-lima);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    width: 100%;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+header nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+header nav a {
+    color: var(--color-blanco);
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: var(--color-verde-lima);
+    text-shadow: 0 0 5px var(--color-verde-lima);
+}
+
+/* --- Estilos de Secciones --- */
+main {
+    padding-top: 70px; /* Altura del header */
+}
+
+section {
+    padding: 3rem 0;
+    border-bottom: 1px dashed var(--color-gris);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --- Botón Principal --- */
+.btn {
+    display: inline-block;
+    background-color: var(--color-verde-lima);
+    color: var(--color-negro);
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--color-verde-lima);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-negro);
+    color: var(--color-verde-lima);
+}
+
+/* --- Sección Hero --- */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--color-negro-sec);
+}
+
+/* Corrección Hero */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero .subtitle {
+    font-size: 1.5rem;
+    color: var(--color-blanco);
+    margin-bottom: 2rem;
+}
+
+/* --- Sección Sobre Mí --- */
+#sobre-mi .split {
+    display: flex;
+    flex-wrap: wrap; /* Añadido para responsividad */
+    gap: 3rem;
+    align-items: center;
+}
+
+#sobre-mi .about-text {
+    flex: 2;
+    min-width: 300px; /* Añadido para responsividad */
+}
+
+#sobre-mi .about-photo {
+    flex: 1;
+    text-align: center;
+    min-width: 250px; /* Añadido para responsividad */
+}
+
+.profile-pic {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--color-verde-lima);
+    box-shadow: 0 0 15px var(--color-verde-lima);
+}
+
+/* --- Sección Habilidades --- */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+p strong {
+    color: var(--color-verde-lima); /* Usa el color verde lima de tus variables */
+    font-weight: bold;
+    /* Efecto de brillo sutil opcional */
+    text-shadow: 0 0 4px rgba(0, 255, 0, 0.2);
+}
+
+.skill-card {
+    background-color: var(--color-negro-sec);
+    padding: 2rem;
+    border: 1px solid var(--color-gris);
+    border-left: 4px solid var(--color-verde-lima);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-verde-lima);
+}
+
+.skill-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-verde-lima);
+}
+
+.skill-card h3 {
+    color: var(--color-blanco);
+    margin-bottom: 0.5rem;
+}
+
+/* --- Sección Proyectos --- */
+.proyectos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.proyecto-card {
+    background-color: var(--color-negro-sec);
+    border: 1px solid var(--color-gris);
+    display: flex;
+    flex-direction: column;
+}
+
+.proyecto-card-imagen {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-verde-lima);
+}
+
+.proyecto-card-contenido {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.proyecto-card-tags {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.proyecto-card-tags span {
+    background-color: var(--color-gris);
+    color: var(--color-verde-lima);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+
+.proyecto-card-links {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.proyecto-card-links a {
+    color: var(--color-blanco);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.proyecto-card-links a:hover {
+    color: var(--color-verde-lima);
+}
+
+/* --- Sección Blog --- */
+.blog-filters {
+    background-color: var(--color-negro-sec);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-gris);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .blog-filters {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+}
+
+.filter-group-full {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column; /* Apilado en móvil */
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: bold;
+}
+
+.filter-group select,
+.filter-group input,
+#filter-search {
+    width: 100%;
+    background-color: var(--color-gris);
+    color: var(--color-blanco);
+    border: 1px solid var(--color-verde-lima);
+    padding: 0.6rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+/* --- Posts del Blog --- */
+.blog-posts-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.blog-post-card {
+    background-color: var(--color-negro-sec);
+    border: 1px solid var(--color-gris);
+    padding: 1.5rem;
+    display: block;
+    transition: border-color 0.3s ease;
+}
+
+.blog-post-card:hover {
+    border-color: var(--color-verde-lima);
+}
+
+.post-tags {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.post-tags span {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.tag-cat {
+    background-color: var(--color-gris);
+    color: var(--color-verde-lima);
+}
+
+.tag-diff.facil { background-color: #008f00; color: #fff; }
+.tag-diff.media { background-color: #b8860b; color: #fff; }
+.tag-diff.dificil { background-color: #b22222; color: #fff; }
+
+.btn-read {
+    font-weight: bold;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.btn-read:hover {
+    text-decoration: underline;
+}
+
+/* --- Sección Contacto --- */
+.contact-links {
+    margin: 2rem 0;
+}
+
+.contact-item {
+    font-size: 1.2rem;
+    color: var(--color-blanco);
+}
+.contact-item i {
+    margin-right: 0.5rem;
+    color: var(--color-verde-lima);
+}
+
+.social-links a {
+    font-size: 2.5rem;
+    color: var(--color-blanco);
+    margin: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--color-verde-lima);
+    text-shadow: 0 0 10px var(--color-verde-lima);
+}
+
+/* --- Footer --- */
+footer {
+    padding: 2rem 0;
+    text-align: center;
+    background-color: var(--color-negro-sec);
+    border-top: 1px solid var(--color-gris);
+    margin-top: 2rem;
+    color: #888;
+}
+
+/* --- Estilos para Código (Prism.js) --- */
+pre[class*="language-"] {
+    background: #272822;
+    border: 1px solid var(--color-verde-lima);
+    border-left: 5px solid var(--color-verde-lima);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+    border-radius: 0;
+    overflow-x: auto; /* Para que el código no se salga */
+}
+
+/* --- NUEVO: Estilo para el enlace del título del post --- */
+.post-title-link {
+    text-decoration: none; /* Quita el subrayado feo del enlace */
+}
+
+.post-title-link h3 {
+    /* El H3 ya es verde por tus reglas globales, pero 
+       le añadimos una transición para el efecto hover */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.post-title-link:hover h3 {
+    /* Al pasar el ratón, el título se ilumina en blanco */
+    color: var(--color-blanco);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}

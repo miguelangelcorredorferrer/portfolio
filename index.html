@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Ángel Corredor Ferrer - Blue Team & System Security</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">&lt;Miguel Ángel Corredor Ferrer&gt;</a>
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#sobre-mi">Sobre Mí</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#blog">Blog</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container hero-content">
+                <h1>Miguel Ángel Corredor Ferrer</h1>
+                <p class="subtitle">[ Blue Team y Seguridad de Sistemas ]</p>
+                <a href="CV-MiguelAngelCorredor.pdf" class="btn" download>
+                    <i class="fa-solid fa-download"></i> Descargar CV
+                </a>
+            </div>
+        </section>
+
+        <section id="sobre-mi">
+            <div class="container split">
+                <div class="about-text">
+                    <h2>&gt; Sobre Mí</h2>
+                    <p>
+                        ¡Hola! Soy Miguel Ángel, un profesional de la ciberseguridad enfocado en el <strong>Blue Team</strong> y la <strong>seguridad de sistemas</strong>. Mi pasión es proteger infraestructuras digitales, detectar amenazas y responder a incidentes.
+                    </p>
+                    <p>
+                        Con experiencia práctica y certificaciones clave del sector, busco siempre fortalecer las defensas y analizar las tácticas de los adversarios. Hablo <strong>Inglés (Nivel B1)</strong> y estoy listo para nuevos desafíos.
+                    </p>
+                </div>
+                <div class="about-photo">
+                    <img src="tu-foto.jpg" alt="Foto de Miguel Ángel Corredor Ferrer" class="profile-pic">
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades">
+            <div class="container">
+                <h2>&gt; Habilidades y Certificaciones</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>eJPTv2</h3>
+                        <p>eLearnSecurity Junior Penetration Tester v2</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-solid fa-cloud"></i>
+                        <h3>ICCA (INE)</h3>
+                        <p>INE Certified Cloud Associate</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-python"></i>
+                        <h3>Python</h3>
+                        <p>Scripting para automatización y análisis de seguridad.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-docker"></i>
+                        <h3>Docker</h3>
+                        <p>Conocimiento en contenedores y su seguridad.</p>
+                    </div>
+                     <div class="skill-card">
+                        <i class="fa-brands fa-java"></i>
+                        <h3>Java</h3>
+                        <p>Desarrollo de aplicaciones seguras.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-js"></i>
+                        <h3>JavaScript</h3>
+                        <p>Entendimiento de seguridad en el lado del cliente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <div class="container">
+                <h2>&gt; Proyectos Destacados</h2>
+                <div id="proyectos-grid" class="proyectos-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="blog">
+            <div class="container">
+                <h2>&gt; Blog Personal</h2>
+                
+                <div class="blog-filters">
+                    <div class="filter-group-full">
+                        <label for="filter-search"><i class="fa-solid fa-search"></i> Buscar:</label>
+                        <input type="search" id="filter-search" placeholder="Filtrar por nombre...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-category">Categoría:</label>
+                        <select id="filter-category">
+                            <option value="all">Todas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-difficulty">Dificultad:</label>
+                        <select id="filter-difficulty">
+                            <option value="all">Todas</option>
+                            <option value="facil">Fácil</option>
+                            <option value="media">Media</option>
+                            <option value="dificil">Difícil</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-tags">Etiquetas:</label>
+                        <select id="filter-tags">
+                            <option value="all">Todas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="blog-posts-container" class="blog-posts-container">
+                    </div>
+                
+                <button id="btn-ver-mas" class="btn" style="display: none; margin-top: 2rem;">
+                    Ver más publicaciones
+                </button>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <div class="container text-center">
+                <h2>&gt; Contacto</h2>
+                <p>Puede contactarme a través de los siguientes medios</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:miguelangelcorredor07@gmail.com" class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        miguelangelcorredor07@gmail.com
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/miguel-angel-corredor-ferrer/" target="_blank" title="LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/miguelangelcorredorferrer" target="_blank" title="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Miguel Ángel Corredor Ferrer. Pagina Web Personal.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="blog-data.js"></script> <script src="script.js"></script>   </body>
+</html>
