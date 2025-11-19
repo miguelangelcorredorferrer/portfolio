@@ -342,6 +342,11 @@ section:last-of-type { border-bottom: none; }
     color: var(--color-verde-lima);
 }
 
+#contacto p {
+    /* Esta línea obliga al texto a centrarse dentro del párrafo */
+    text-align: center; 
+    margin-bottom: 1.5rem; /* Mantenemos el espacio inferior */
+}
 
 /* Footer */
 footer { text-align: center; padding: 2rem; border-top: 1px solid var(--color-gris); color: #666; margin-top: 4rem; }
