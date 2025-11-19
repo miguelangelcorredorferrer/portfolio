@@ -139,7 +139,12 @@ section:last-of-type { border-bottom: none; }
     font-weight: bold;
     text-transform: uppercase;
     color: var(--color-blanco);
-    letter-spacing: 3px;
+    
+    /* FIX 1: Fuerza la línea única */
+    white-space: nowrap; 
+    /* FIX 2: Ajuste de espaciado */
+    letter-spacing: 1px; 
+    
     line-height: 1.1;
     position: relative;
 }
@@ -151,11 +156,15 @@ section:last-of-type { border-bottom: none; }
     top: 0; left: 0; width: 100%; height: 100%;
 }
 .glitch::before {
-    left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0);
+    left: 2px; text-shadow: -1px 0 #ff00c1; 
+    /* FIX 3: Aumentar el ancho de clip (de 450px a 1000px) */
+    clip: rect(44px, 1000px, 56px, 0); 
     animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 .glitch::after {
-    left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0);
+    left: -2px; text-shadow: -1px 0 #00fff9; 
+    /* FIX 3: Aumentar el ancho de clip (de 450px a 1000px) */
+    clip: rect(44px, 1000px, 56px, 0); 
     animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 @keyframes glitch-anim {
@@ -229,16 +238,18 @@ section:last-of-type { border-bottom: none; }
 .about-photo { flex: 1; text-align: center; }
 .photo-frame {
     padding: 8px;
-    border: 1px solid var(--color-verde-lima);
     display: inline-block;
-    background: rgba(0,255,65,0.05);
-    /* Eliminar contorno que sobresale: */
+    background: transparent; 
+    border: none;
     box-shadow: none;
+    border-radius: 50%;
 }
 .profile-pic {
     width: 250px; height: 250px;
     object-fit: cover;
     display: block;
+    border-radius: 50%;
+    transition: 0.5s;
 }
 
 /* --- Cards (Habilidades y Proyectos) --- */
@@ -281,9 +292,9 @@ section:last-of-type { border-bottom: none; }
 /* --- Contacto (Refinado) --- */
 .contact-info-block {
     display: flex;
-    flex-direction: column; /* Apilar elementos verticalmente */
-    align-items: center; /* Centrar horizontalmente */
-    gap: 1.5rem; /* Espacio entre el email y los enlaces sociales */
+    flex-direction: column; 
+    align-items: center; 
+    gap: 1.5rem; 
     margin-top: 2rem;
 }
 
@@ -292,10 +303,10 @@ section:last-of-type { border-bottom: none; }
     color: var(--color-blanco);
     border: 1px solid var(--color-verde-lima);
     padding: 10px 20px;
-    display: inline-flex; /* Para alinear icono y texto */
+    display: inline-flex; 
     align-items: center;
     gap: 10px;
-    text-decoration: none; /* Eliminar subrayado */
+    text-decoration: none; 
     transition: 0.3s;
     background-color: var(--color-negro-sec);
 }
@@ -308,23 +319,23 @@ section:last-of-type { border-bottom: none; }
 .social-links-container {
     display: flex;
     justify-content: center;
-    gap: 2.5rem; /* Más espacio entre los enlaces sociales */
+    gap: 2.5rem; 
 }
 
 .social-link-item {
-    font-size: 1.5rem; /* Tamaño de icono y texto */
+    font-size: 1.5rem; 
     color: #666;
     text-decoration: none;
     transition: 0.3s;
     display: flex;
     align-items: center;
-    gap: 8px; /* Espacio entre icono y texto */
+    gap: 8px; 
 }
 .social-link-item:hover {
     color: var(--color-verde-lima);
 }
 .social-link-item span {
-    font-size: 1rem; /* Tamaño del texto */
+    font-size: 1rem; 
     color: #999;
 }
 .social-link-item:hover span {
@@ -391,87 +402,17 @@ input, select {
     background: rgba(0, 255, 65, 0.1);
 }
 
-/* --- AÑADE/MODIFICA ESTAS REGLAS --- */
-
-/* 1. Hace la foto redonda */
-.profile-pic {
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    /* CAMBIO CLAVE: Hace la imagen redonda */
-    border-radius: 50%; 
-    display: block;
-     
-    transition: 0.5s;
-}
-
-/* 2. Ajusta el marco que antes era cuadrado para que se adapte al círculo */
-.photo-frame {
-    padding: 8px;
-    display: inline-block;
-    background: rgba(0,255,65,0.05);
-    box-shadow: none;
-    /* Hace el marco también redondo */
-    border-radius: 50%; 
-    background: transparent; 
-    border: none;
-}
-
-
-/* 3. Centra el Contenido de la Sección */
-.split.centered-content {
-    /* Centra los ítems verticalmente */
-    align-items: center; 
-    /* Utiliza Flexbox para distribuir los espacios */
-    justify-content: space-around; 
-}
-
-/* 4. Centra el texto dentro del bloque about-text */
-.about-text {
-    flex: 2; 
-    min-width: 300px;
-    /* Alinea el texto a la izquierda, no centrado */
-    text-align: left; 
-}
-
-/* 5. Asegura que la sección "Sobre Mí" esté arriba (al inicio de main) */
-main { 
-    padding-top: 70px; /* Esto asegura que el contenido empiece debajo del header */
-}
-
-/* Si quieres el texto del about-text completamente centrado, añade: */
-.text-center-content {
-    text-align: center;
-}
-
-#contacto p {
-    /* Asegura que el texto de la pregunta esté centrado */
-    text-align: center;
-    margin-bottom: 1.5rem; /* Ajuste de espacio */
-}
-
-/* --- Estilo para el Feedback de Copiado del Email --- */
-.contact-email.copied {
-    /* Cambia el color del botón cuando se copia */
-    background-color: var(--color-verde-lima); 
-    color: black !important;                   
-    
-    /* Añade un brillo para hacerlo más visible */
-    box-shadow: 0 0 10px var(--color-verde-lima); 
-    border-color: var(--color-verde-lima);     
-    
-    /* Evita que se pueda hacer clic de nuevo mientras muestra el mensaje */
-    pointer-events: none;                      
-}
-
 /* Responsivo */
 @media (max-width: 768px) {
-    .glitch { font-size: 2.5rem; }
+    .glitch { 
+        font-size: 2.2rem; /* FIX: Tamaño reducido para móvil */
+        white-space: nowrap;
+    } 
     .hero-subtitle { font-size: 1rem; }
     .section-divider-title { font-size: 1.5rem; }
     .blog-header h1 { font-size: 2.2rem; }
     .split { flex-direction: column; }
-    .about-photo { order: -1; margin-bottom: 2rem; } /* Pone la foto arriba en móviles */
+    .about-photo { order: -1; margin-bottom: 2rem; } 
     .contact-info-block { gap: 1rem; }
     .social-links-container { flex-direction: column; gap: 0.8rem; }
 }
