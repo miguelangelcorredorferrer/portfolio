@@ -3,46 +3,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Constantes y Estado ---
     const POSTS_POR_PAGINA = 5;
     let paginaActual = 1;
-    let postsFiltrados = [...misPosts]; // Copia de los posts
+    
+    // Solo inicializamos posts si 'misPosts' existe (por seguridad)
+    let postsFiltrados = (typeof misPosts !== 'undefined') ? [...misPosts] : [];
 
     // --- Selectores del DOM ---
     const postContainer = document.getElementById('blog-posts-container');
     const btnVerMas = document.getElementById('btn-ver-mas');
-    
-    // Selectores de Proyectos
     const proyectosContainer = document.getElementById('proyectos-grid');
 
-    // Selectores de Filtros
+    // Filtros (pueden ser null si estamos en index.html)
     const searchInput = document.getElementById('filter-search');
     const categorySelect = document.getElementById('filter-category');
     const difficultySelect = document.getElementById('filter-difficulty');
     const tagsSelect = document.getElementById('filter-tags');
 
     // ===============================================
-    // CARGA DE PROYECTOS
+    // 1. LÓGICA PARA PROYECTOS (Solo en index.html)
     // ===============================================
-    function renderizarProyectos() {
-        if (!proyectosContainer) return; 
-        proyectosContainer.innerHTML = ''; 
+    if (proyectosContainer && typeof misProyectos !== 'undefined') {
+        renderizarProyectos();
+    }
 
+    function renderizarProyectos() {
+        proyectosContainer.innerHTML = ''; 
         misProyectos.forEach(proyecto => {
             const tagsHTML = proyecto.tags.map(tag => `<span>${tag}</span>`).join('');
-            
             const demoLink = proyecto.linkDemo 
-                ? `<a href="${proyecto.linkDemo}" target="_blank" title="Demo"><i class="fa-solid fa-rocket"></i> Ver Deploy</a>` 
-                : '';
+                ? `<a href="${proyecto.linkDemo}" target="_blank"><i class="fa-solid fa-rocket"></i> Demo</a>` : '';
 
             const proyectoHTML = `
                 <article class="proyecto-card">
                     <img src="${proyecto.imagen}" alt="${proyecto.titulo}" class="proyecto-card-imagen">
                     <div class="proyecto-card-contenido">
                         <h3>${proyecto.titulo}</h3>
-                        <div class="proyecto-card-tags">
-                            ${tagsHTML}
-                        </div>
+                        <div class="proyecto-card-tags">${tagsHTML}</div>
                         <p>${proyecto.descripcion}</p>
                         <div class="proyecto-card-links">
-                            <a href="${proyecto.linkGitHub}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i> Código Fuente</a>
+                            <a href="${proyecto.linkGitHub}" target="_blank"><i class="fa-brands fa-github"></i> Code</a>
                             ${demoLink}
                         </div>
                     </div>
@@ -53,11 +51,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    // CARGA Y FILTRADO DEL BLOG
+    // 2. LÓGICA PARA EL BLOG (Solo en blog.html)
     // ===============================================
+    if (postContainer) {
+        popularFiltros();
+        aplicarTodosLosFiltros(); // Carga inicial
+
+        // Listeners solo si existen los elementos
+        if (btnVerMas) btnVerMas.addEventListener('click', () => { paginaActual++; renderizarPosts(); });
+        if (searchInput) searchInput.addEventListener('input', aplicarTodosLosFiltros);
+        if (categorySelect) categorySelect.addEventListener('change', aplicarTodosLosFiltros);
+        if (difficultySelect) difficultySelect.addEventListener('change', aplicarTodosLosFiltros);
+        if (tagsSelect) tagsSelect.addEventListener('change', aplicarTodosLosFiltros);
+    }
 
     function renderizarPosts() {
-        if (!postContainer) return; // Salir si no existe el contenedor
         postContainer.innerHTML = ''; 
         
         const inicio = 0;
@@ -65,38 +73,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const postsAMostrar = postsFiltrados.slice(inicio, fin);
 
         if (postsAMostrar.length === 0) {
-            postContainer.innerHTML = '<p>No se encontraron publicaciones con esos filtros.</p>';
+            postContainer.innerHTML = '<p style="text-align:center; color:#888;">No hay registros en la base de datos con estos filtros.</p>';
         } else {
             postsAMostrar.forEach(post => {
                 postContainer.innerHTML += crearHTMLdePost(post);
             });
         }
 
-        if (postsFiltrados.length > fin) {
-            btnVerMas.style.display = 'block'; 
-        } else {
-            btnVerMas.style.display = 'none'; 
+        if (btnVerMas) {
+            btnVerMas.style.display = (postsFiltrados.length > fin) ? 'block' : 'none';
         }
     }
 
     function crearHTMLdePost(post) {
         let diffClass = post.dificultad.toLowerCase();
         let diffText = post.dificultad.charAt(0).toUpperCase() + post.dificultad.slice(1);
-        const tagsHTML = post.etiquetas.map(tag => `<span class="tag-cat">${tag}</span>`).join(' ');
+        const tagsHTML = post.etiquetas.map(tag => `<span class="tag-cat">${tag}</span>`).join('');
 
         return `
-            <article class="blog-post-card" data-id="${post.id}">
+            <article class="blog-post-card">
                 <div class="post-tags">
                     ${tagsHTML}
                     <span class="tag-diff ${diffClass}">${diffText}</span>
                 </div>
-
                 <a href="${post.archivo}" class="post-title-link">
                     <h3>${post.titulo}</h3>
                 </a>
-
                 <p>${post.resumen}</p>
-                <a href="${post.archivo}" class="btn-read">Leer más...</a>
+                <a href="${post.archivo}" class="btn-read">[ Leer entrada completa ]</a>
             </article>
         `;
     }
@@ -110,18 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
             post.etiquetas.forEach(etiqueta => etiquetas.add(etiqueta));
         });
 
-        // Asegurarse de que los selectores existen antes de intentar llenarlos
-        if (categorySelect) {
-            categorias.forEach(cat => {
-                categorySelect.innerHTML += `<option value="${cat}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</option>`;
-            });
-        }
-        
-        if (tagsSelect) {
-            etiquetas.forEach(etiqueta => {
-                tagsSelect.innerHTML += `<option value="${etiqueta}">${etiqueta}</option>`;
-            });
-        }
+        if (categorySelect) categorias.forEach(cat => categorySelect.innerHTML += `<option value="${cat}">${cat.toUpperCase()}</option>`);
+        if (tagsSelect) etiquetas.forEach(etiqueta => tagsSelect.innerHTML += `<option value="${etiqueta}">${etiqueta}</option>`);
     }
 
     function aplicarTodosLosFiltros() {
@@ -135,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const matchCategoria = (categoria === 'all') || (post.categoria === categoria);
             const matchDificultad = (dificultad === 'all') || (post.dificultad === dificultad);
             const matchEtiqueta = (etiqueta === 'all') || (post.etiquetas.includes(etiqueta));
-            
             return matchBusqueda && matchCategoria && matchDificultad && matchEtiqueta;
         });
 
@@ -143,23 +136,43 @@ document.addEventListener('DOMContentLoaded', function() {
         renderizarPosts();
     }
 
-    // --- Event Listeners ---
-    if (btnVerMas) {
-        btnVerMas.addEventListener('click', () => {
-            paginaActual++; 
-            renderizarPosts(); 
+    // Añade este bloque de código dentro de la función principal de DOMContentLoaded:
+
+    // --- NUEVA FUNCIONALIDAD: COPIAR EMAIL AL PORTAPAPELES ---
+    const emailLink = document.querySelector('.contact-email');
+
+    if (emailLink) {
+        emailLink.addEventListener('click', function(event) {
+            // 1. Previene la acción por defecto del enlace (abrir el cliente de correo)
+            event.preventDefault(); 
+            
+            // Obtenemos la dirección de correo electrónico del texto interno del enlace
+            // Usamos una expresión regular simple para limpiarlo si es necesario, pero
+            // usaremos el valor fijo para mayor seguridad:
+            const emailAddress = 'miguelangelcorredor07@gmail.com'; 
+
+            // 2. Almacenamos el contenido original para poder restaurarlo
+            const originalHTML = this.innerHTML; 
+
+            // 3. Copiar al portapapeles
+            navigator.clipboard.writeText(emailAddress).then(() => {
+                
+                // 4. Proporcionar feedback visual inmediato
+                this.classList.add('copied');
+                this.innerHTML = '<i class="fa-solid fa-check"></i> ¡COPIADO!';
+                
+                // 5. Restaurar el texto original después de 2 segundos
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                    this.innerHTML = originalHTML;
+                }, 2000);
+
+            }).catch(err => {
+                // Fallback si la API del Portapapeles falla 
+                console.error('Error al intentar copiar:', err);
+                alert('No se pudo copiar automáticamente. Email: ' + emailAddress);
+            });
         });
     }
-
-    // Añadir listeners solo si los elementos existen
-    if (searchInput) searchInput.addEventListener('input', aplicarTodosLosFiltros);
-    if (categorySelect) categorySelect.addEventListener('change', aplicarTodosLosFiltros);
-    if (difficultySelect) difficultySelect.addEventListener('change', aplicarTodosLosFiltros);
-    if (tagsSelect) tagsSelect.addEventListener('change', aplicarTodosLosFiltros);
-
-    // --- Inicialización ---
-    renderizarProyectos();
-    popularFiltros();
-    aplicarTodosLosFiltros(); // Carga inicial
 
 });

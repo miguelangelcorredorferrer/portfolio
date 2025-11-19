@@ -1,432 +1,477 @@
-/* --- Variables de Color (Estilo Hacker) --- */
 :root {
-    --color-negro: #0a0a0a;
-    --color-negro-sec: #111111;
-    --color-gris: #222222;
-    --color-blanco: #f0f0f0;
-    --color-verde-lima: #00ff00;
-    --color-verde-oscuro: #008f00;
+    --color-negro: #050505;
+    --color-negro-sec: #0a0a0a;
+    --color-gris: #1f1f1f;
+    --color-blanco: #e0e0e0;
+    --color-verde-lima: #00ff41;
+    --color-verde-oscuro: #008f11;
 }
 
-/* --- Reseteo Global --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-family: 'Share Tech Mono', monospace;
     background-color: var(--color-negro);
     color: var(--color-blanco);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--color-verde-lima);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
+/* --- Fondo de Red (Grid) Sutil --- */
+.background-grid {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        linear-gradient(transparent 0%, rgba(0, 255, 65, 0.02) 1px, transparent 2px),
+        linear-gradient(90deg, transparent 0%, rgba(0, 255, 65, 0.02) 1px, transparent 2px);
+    background-size: 60px 60px;
+    transform: perspective(500px) rotateX(20deg) translateY(-100px) scale(1.5);
+    animation: moveGrid 20s linear infinite;
+    z-index: -1;
+    pointer-events: none;
 }
-
-p {
-    margin-bottom: 1rem;
-}
-
-a {
-    color: var(--color-verde-lima);
-    text-decoration: none;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
+@keyframes moveGrid { 0% { background-position: 0 0; } 100% { background-position: 0 60px; } }
 
 /* --- Header / Navbar --- */
 header {
-    background-color: var(--color-negro-sec);
-    border-bottom: 1px solid var(--color-verde-lima);
+    background-color: rgba(5, 5, 5, 0.9);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(5px);
+    height: 70px;
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 0 5%;
     width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
 }
 
 header .logo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
+    color: var(--color-verde-lima);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
 }
 
-header nav {
-    display: flex;
-    gap: 1.5rem;
-}
+header nav { display: flex; gap: 1.5rem; }
 
 header nav a {
     color: var(--color-blanco);
-    transition: color 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    text-transform: uppercase;
 }
 
-header nav a:hover {
+header nav a:hover, header nav a.active {
     color: var(--color-verde-lima);
     text-shadow: 0 0 5px var(--color-verde-lima);
 }
 
-/* --- Estilos de Secciones --- */
-main {
-    padding-top: 70px; /* Altura del header */
+/* --- Estructura Global --- */
+main { padding-top: 70px; }
+.container { width: 90%; max-width: 1100px; margin: 0 auto; }
+section { padding: 4rem 0; }
+section:not(#inicio):not(#blog) { /* Elimina la línea discontinua */
+    /* border-bottom: 1px dashed #1a1a1a; */
 }
+section:last-of-type { border-bottom: none; }
 
-section {
-    padding: 3rem 0;
-    border-bottom: 1px dashed var(--color-gris);
-}
 
-.text-center {
-    text-align: center;
-}
-
-/* --- Botón Principal --- */
-.btn {
-    display: inline-block;
-    background-color: var(--color-verde-lima);
-    color: var(--color-negro);
-    padding: 0.8rem 1.5rem;
-    border: 1px solid var(--color-verde-lima);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background-color: var(--color-negro);
-    color: var(--color-verde-lima);
-}
-
-/* --- Sección Hero --- */
-.hero {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: var(--color-negro-sec);
-}
-
-/* Corrección Hero */
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-}
-
-.hero .subtitle {
-    font-size: 1.5rem;
+/* Nuevo estilo para los títulos de sección (delimitadores) */
+.section-divider-title {
     color: var(--color-blanco);
-    margin-bottom: 2rem;
-}
-
-/* --- Sección Sobre Mí --- */
-#sobre-mi .split {
-    display: flex;
-    flex-wrap: wrap; /* Añadido para responsividad */
-    gap: 3rem;
-    align-items: center;
-}
-
-#sobre-mi .about-text {
-    flex: 2;
-    min-width: 300px; /* Añadido para responsividad */
-}
-
-#sobre-mi .about-photo {
-    flex: 1;
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
     text-align: center;
-    min-width: 250px; /* Añadido para responsividad */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 10px;
+    display: flex; /* Usamos flexbox para centrar y alinear */
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espacio entre las líneas y el texto */
 }
 
-.profile-pic {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid var(--color-verde-lima);
+/* Líneas a cada lado del título */
+.section-divider-title::before,
+.section-divider-title::after {
+    content: '';
+    display: block;
+    width: 50px; /* Longitud de la línea */
+    height: 1px; /* Grosor de la línea */
+    background-color: var(--color-verde-lima);
+}
+
+
+/* --- HERO SECTION (LIMPIA) --- */
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: none;
+    text-align: center;
+}
+
+.hero-container-clean {
+    max-width: 1000px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* Nombre Glitch */
+.glitch-wrapper { margin-bottom: 1rem; }
+.glitch {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-blanco);
+    letter-spacing: 3px;
+    line-height: 1.1;
+    position: relative;
+}
+
+/* Efecto Glitch CSS */
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+.glitch::before {
+    left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim {
+    0% { clip: rect(30px, 9999px, 10px, 0); }
+    20% { clip: rect(80px, 9999px, 90px, 0); }
+    40% { clip: rect(10px, 9999px, 50px, 0); }
+    60% { clip: rect(40px, 9999px, 20px, 0); }
+    80% { clip: rect(70px, 9999px, 90px, 0); }
+    100% { clip: rect(20px, 9999px, 60px, 0); }
+}
+@keyframes glitch-anim2 {
+    0% { clip: rect(10px, 9999px, 80px, 0); }
+    20% { clip: rect(60px, 9999px, 10px, 0); }
+    40% { clip: rect(30px, 9999px, 50px, 0); }
+    60% { clip: rect(90px, 9999px, 20px, 0); }
+    80% { clip: rect(10px, 9999px, 40px, 0); }
+    100% { clip: rect(50px, 9999px, 60px, 0); }
+}
+
+/* Subtítulo */
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-verde-lima);
+    margin-bottom: 3rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    border: none;
+    background: none;
+}
+
+/* Botones Hero */
+.hero-buttons { display: flex; justify-content: center; gap: 1.5rem; }
+
+.btn {
+    padding: 0.8rem 2.5rem;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.btn-glow {
+    background: var(--color-verde-lima);
+    color: black;
+    border: 1px solid var(--color-verde-lima);
+}
+.btn-glow:hover {
+    background: black;
+    color: var(--color-verde-lima);
     box-shadow: 0 0 15px var(--color-verde-lima);
 }
 
-/* --- Sección Habilidades --- */
-.skills-grid {
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--color-gris);
+    color: var(--color-blanco);
+}
+.btn-outline:hover {
+    border-color: var(--color-verde-lima);
+    color: var(--color-verde-lima);
+}
+
+/* --- Sobre Mí --- */
+.split { display: flex; gap: 3rem; align-items: center; flex-wrap: wrap; }
+.about-text { flex: 2; min-width: 300px; }
+.about-photo { flex: 1; text-align: center; }
+.photo-frame {
+    padding: 8px;
+    border: 1px solid var(--color-verde-lima);
+    display: inline-block;
+    background: rgba(0,255,65,0.05);
+    /* Eliminar contorno que sobresale: */
+    box-shadow: none;
+}
+.profile-pic {
+    width: 250px; height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Cards (Habilidades y Proyectos) --- */
+.skills-grid, .proyectos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
 }
 
-p strong {
-    color: var(--color-verde-lima); /* Usa el color verde lima de tus variables */
-    font-weight: bold;
-    /* Efecto de brillo sutil opcional */
-    text-shadow: 0 0 4px rgba(0, 255, 0, 0.2);
-}
-
-.skill-card {
-    background-color: var(--color-negro-sec);
+.skill-card, .proyecto-card {
+    background: var(--color-negro-sec);
     padding: 2rem;
     border: 1px solid var(--color-gris);
-    border-left: 4px solid var(--color-verde-lima);
-    transition: transform 0.3s ease;
+    transition: 0.3s;
+    position: relative;
 }
-
-.skill-card:hover {
+.skill-card:hover, .proyecto-card:hover {
+    border-color: var(--color-verde-lima);
     transform: translateY(-5px);
-    border-color: var(--color-verde-lima);
+    box-shadow: 0 5px 15px rgba(0,255,65,0.1);
 }
 
-.skill-card i {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--color-verde-lima);
-}
+.skill-card i { font-size: 2.5rem; color: var(--color-verde-lima); margin-bottom: 1rem; }
+.skill-card h3, .proyecto-card h3 { color: white; margin-bottom: 0.5rem; }
 
-.skill-card h3 {
-    color: var(--color-blanco);
-    margin-bottom: 0.5rem;
-}
-
-/* --- Sección Proyectos --- */
-.proyectos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-.proyecto-card {
-    background-color: var(--color-negro-sec);
-    border: 1px solid var(--color-gris);
-    display: flex;
-    flex-direction: column;
-}
-
+/* Proyectos Específico */
 .proyecto-card-imagen {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--color-verde-lima);
-}
-
-.proyecto-card-contenido {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.proyecto-card-tags {
+    width: 100%; height: 180px; object-fit: cover;
+    border-bottom: 2px solid var(--color-verde-lima);
     margin-bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
 }
-
 .proyecto-card-tags span {
-    background-color: var(--color-gris);
-    color: var(--color-verde-lima);
-    padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
-    border-radius: 4px;
+    background: #222; color: var(--color-verde-lima);
+    font-size: 0.8rem; padding: 3px 8px; margin-right: 5px;
 }
+.proyecto-card-links { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #222; display: flex; gap: 1rem; }
+.proyecto-card-links a { color: white; font-size: 0.9rem; }
+.proyecto-card-links a:hover { color: var(--color-verde-lima); }
 
-.proyecto-card-links {
-    margin-top: auto;
-    padding-top: 1rem;
+/* --- Contacto (Refinado) --- */
+.contact-info-block {
     display: flex;
-    gap: 1rem;
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    gap: 1.5rem; /* Espacio entre el email y los enlaces sociales */
+    margin-top: 2rem;
 }
 
-.proyecto-card-links a {
-    color: var(--color-blanco);
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.proyecto-card-links a:hover {
-    color: var(--color-verde-lima);
-}
-
-/* --- Sección Blog --- */
-.blog-filters {
-    background-color: var(--color-negro-sec);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--color-gris);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-    .blog-filters {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-    }
-}
-
-.filter-group-full {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column; /* Apilado en móvil */
-    gap: 0.5rem;
-}
-
-.filter-group label {
-    font-weight: bold;
-}
-
-.filter-group select,
-.filter-group input,
-#filter-search {
-    width: 100%;
-    background-color: var(--color-gris);
-    color: var(--color-blanco);
-    border: 1px solid var(--color-verde-lima);
-    padding: 0.6rem;
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-/* --- Posts del Blog --- */
-.blog-posts-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-.blog-post-card {
-    background-color: var(--color-negro-sec);
-    border: 1px solid var(--color-gris);
-    padding: 1.5rem;
-    display: block;
-    transition: border-color 0.3s ease;
-}
-
-.blog-post-card:hover {
-    border-color: var(--color-verde-lima);
-}
-
-.post-tags {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.post-tags span {
-    padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    border-radius: 4px;
-}
-
-.tag-cat {
-    background-color: var(--color-gris);
-    color: var(--color-verde-lima);
-}
-
-.tag-diff.facil { background-color: #008f00; color: #fff; }
-.tag-diff.media { background-color: #b8860b; color: #fff; }
-.tag-diff.dificil { background-color: #b22222; color: #fff; }
-
-.btn-read {
-    font-weight: bold;
-    margin-top: 1rem;
-    display: inline-block;
-}
-
-.btn-read:hover {
-    text-decoration: underline;
-}
-
-/* --- Sección Contacto --- */
-.contact-links {
-    margin: 2rem 0;
-}
-
-.contact-item {
+.contact-email {
     font-size: 1.2rem;
     color: var(--color-blanco);
-}
-.contact-item i {
-    margin-right: 0.5rem;
-    color: var(--color-verde-lima);
-}
-
-.social-links a {
-    font-size: 2.5rem;
-    color: var(--color-blanco);
-    margin: 0 1rem;
-    transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-    color: var(--color-verde-lima);
-    text-shadow: 0 0 10px var(--color-verde-lima);
-}
-
-/* --- Footer --- */
-footer {
-    padding: 2rem 0;
-    text-align: center;
-    background-color: var(--color-negro-sec);
-    border-top: 1px solid var(--color-gris);
-    margin-top: 2rem;
-    color: #888;
-}
-
-/* --- Estilos para Código (Prism.js) --- */
-pre[class*="language-"] {
-    background: #272822;
     border: 1px solid var(--color-verde-lima);
+    padding: 10px 20px;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    gap: 10px;
+    text-decoration: none; /* Eliminar subrayado */
+    transition: 0.3s;
+    background-color: var(--color-negro-sec);
+}
+.contact-email:hover {
+    background-color: rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    color: var(--color-verde-lima);
+}
+
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem; /* Más espacio entre los enlaces sociales */
+}
+
+.social-link-item {
+    font-size: 1.5rem; /* Tamaño de icono y texto */
+    color: #666;
+    text-decoration: none;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+}
+.social-link-item:hover {
+    color: var(--color-verde-lima);
+}
+.social-link-item span {
+    font-size: 1rem; /* Tamaño del texto */
+    color: #999;
+}
+.social-link-item:hover span {
+    color: var(--color-verde-lima);
+}
+
+
+/* Footer */
+footer { text-align: center; padding: 2rem; border-top: 1px solid var(--color-gris); color: #666; margin-top: 4rem; }
+
+/* --- Blog Page Styles (Restaurado) --- */
+#blog.full-page-section { padding: 4rem 0; }
+
+.blog-header { text-align: center; margin-bottom: 3rem; }
+.blog-header h1 { font-size: 3rem; color: var(--color-verde-lima); }
+.blog-header p { color: #ccc; }
+
+.blog-filters {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; background: var(--color-negro-sec);
+    padding: 1.5rem; border: 1px solid var(--color-gris);
+    margin-bottom: 2rem;
+}
+
+.filter-group-full { grid-column: 1 / -1; }
+input, select {
+    width: 100%; padding: 0.8rem;
+    background: var(--color-gris); border: 1px solid var(--color-verde-oscuro);
+    color: white; font-family: inherit;
+}
+
+.blog-posts-container { display: grid; gap: 1.5rem; }
+
+.blog-post-card {
+    background: var(--color-negro-sec);
+    padding: 2rem;
     border-left: 5px solid var(--color-verde-lima);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
-    border-radius: 0;
-    overflow-x: auto; /* Para que el código no se salga */
+    transition: 0.3s;
 }
 
-/* --- NUEVO: Estilo para el enlace del título del post --- */
-.post-title-link {
-    text-decoration: none; /* Quita el subrayado feo del enlace */
+.blog-post-card:hover { background: #111; }
+
+.post-tags { margin-bottom: 1rem; }
+.tag-cat { background: var(--color-gris); padding: 2px 8px; font-size: 0.8rem; margin-right: 5px; color: var(--color-verde-lima); }
+.tag-diff { padding: 2px 8px; font-size: 0.8rem; color: black; font-weight: bold; }
+.tag-diff.facil { background: #00ff41; }
+.tag-diff.media { background: #ffbd2e; }
+.tag-diff.dificil { background: #ff5f56; }
+
+.post-title-link { text-decoration: none; }
+.post-title-link h3 { font-size: 1.5rem; transition: 0.3s; }
+.post-title-link:hover h3 { color: var(--color-verde-lima); text-shadow: 0 0 10px var(--color-verde-lima); }
+
+.btn-ver-mas {
+    display: inline-block; margin-top: 1rem;
+    color: var(--color-verde-lima); font-weight: bold;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--color-verde-lima);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-ver-mas:hover {
+    background: rgba(0, 255, 65, 0.1);
 }
 
-.post-title-link h3 {
-    /* El H3 ya es verde por tus reglas globales, pero 
-       le añadimos una transición para el efecto hover */
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+/* --- AÑADE/MODIFICA ESTAS REGLAS --- */
+
+/* 1. Hace la foto redonda */
+.profile-pic {
+    width: 250px; 
+    height: 250px;
+    object-fit: cover;
+    /* CAMBIO CLAVE: Hace la imagen redonda */
+    border-radius: 50%; 
+    display: block;
+     
+    transition: 0.5s;
 }
 
-.post-title-link:hover h3 {
-    /* Al pasar el ratón, el título se ilumina en blanco */
-    color: var(--color-blanco);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+/* 2. Ajusta el marco que antes era cuadrado para que se adapte al círculo */
+.photo-frame {
+    padding: 8px;
+    display: inline-block;
+    background: rgba(0,255,65,0.05);
+    box-shadow: none;
+    /* Hace el marco también redondo */
+    border-radius: 50%; 
+    background: transparent; 
+    border: none;
+}
+
+
+/* 3. Centra el Contenido de la Sección */
+.split.centered-content {
+    /* Centra los ítems verticalmente */
+    align-items: center; 
+    /* Utiliza Flexbox para distribuir los espacios */
+    justify-content: space-around; 
+}
+
+/* 4. Centra el texto dentro del bloque about-text */
+.about-text {
+    flex: 2; 
+    min-width: 300px;
+    /* Alinea el texto a la izquierda, no centrado */
+    text-align: left; 
+}
+
+/* 5. Asegura que la sección "Sobre Mí" esté arriba (al inicio de main) */
+main { 
+    padding-top: 70px; /* Esto asegura que el contenido empiece debajo del header */
+}
+
+/* Si quieres el texto del about-text completamente centrado, añade: */
+.text-center-content {
+    text-align: center;
+}
+
+#contacto p {
+    /* Asegura que el texto de la pregunta esté centrado */
+    text-align: center;
+    margin-bottom: 1.5rem; /* Ajuste de espacio */
+}
+
+/* --- Estilo para el Feedback de Copiado del Email --- */
+.contact-email.copied {
+    /* Cambia el color del botón cuando se copia */
+    background-color: var(--color-verde-lima); 
+    color: black !important;                   
+    
+    /* Añade un brillo para hacerlo más visible */
+    box-shadow: 0 0 10px var(--color-verde-lima); 
+    border-color: var(--color-verde-lima);     
+    
+    /* Evita que se pueda hacer clic de nuevo mientras muestra el mensaje */
+    pointer-events: none;                      
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .glitch { font-size: 2.5rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .section-divider-title { font-size: 1.5rem; }
+    .blog-header h1 { font-size: 2.2rem; }
+    .split { flex-direction: column; }
+    .about-photo { order: -1; margin-bottom: 2rem; } /* Pone la foto arriba en móviles */
+    .contact-info-block { gap: 1rem; }
+    .social-links-container { flex-direction: column; gap: 0.8rem; }
 }
